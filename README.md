@@ -7,9 +7,11 @@
 
 - Trained weights link: https://drive.google.com/open?id=1HlKSoCGVm_2Gia--MH5Bx3SquJos-kr1.
 
-The network was trained with two dataset. 
-First dataset was generated using 1120 quantization tables (mentioned in the paper). 
-Second dataset was generated using standard quantization tables (Q50 - Q100).
+  The network was trained with two dataset. 
+  
+  First dataset was generated using 1120 quantization tables (mentioned in the paper). 
+  
+  Second dataset was generated using standard quantization tables (Q50 - Q100).
 
 
 - Example code will be updated.
