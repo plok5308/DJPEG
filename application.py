@@ -1,16 +1,12 @@
-#2018-11-26 wrriten by Jinseok Park
+#2019-04-10 wrriten by Jinseok Park
 #DJPEGnet application
 
-from skimage.util.shape import view_as_windows
 from DJPEG_net import *
 from PIL import JpegImagePlugin
+from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
-
-
-stride = 32
-batch_size = 50
-block_size = 256
+import os.path
 
 def read_q_table(file_name):
     jpg = JpegImagePlugin.JpegImageFile(file_name)
@@ -27,7 +23,8 @@ def read_q_table(file_name):
     return Y_qtable_2d
 
 
-def localizing_double_JPEG(img, q_table):
+def localizing_double_JPEG(img, q_table, stride):
+    block_size = 256
     batch_q = q_table.reshape(1, 8, 8)
     batch_q = batch_q.astype('float')
 
@@ -46,33 +43,52 @@ def localizing_double_JPEG(img, q_table):
             batch_x = np.divide(batch_x, 255)
             pb = sess.run(y_softmax, feed_dict={x: batch_x, QT: batch_q, phase: False})
             # print pb
-            result[i_idx, j_idx] = pb[0, 1]
+            result[i_idx, j_idx] = pb[0, 0]
             j_idx = j_idx + 1
         i_idx = i_idx + 1
-        print(i)
+        print('[{}/{}] Detecting ...'.format(i,H*stride))
     return result
 
 
 if __name__ == "__main__":
-    file_name = 'manp_PQ11.jpg'
+    stride = 32
+    dir_name = './'
+    file_name = 'copy_move_PQ11.jpg'
     result_name = file_name.split('.')[0] + '_result.jpg'
-    img = np.asarray(Image.open(file_name))
+    file_path = os.path.join(dir_name, file_name)
+    result_path = os.path.join(dir_name, result_name)
+
+    #read an image
+    img = np.asarray(Image.open(file_path))
+
     #read quantization table of Y channel from jpeg images
-    q_table = read_q_table(file_name)
+    q_table = read_q_table(file_path)
 
     with tf.Session() as sess:
+        #load pre-trained weights
         saver = tf.train.Saver(write_version=tf.train.SaverDef.V2, max_to_keep=None)
         saver.restore(sess, "DJPEG_weights.ckpt")
 
-        result = localizing_double_JPEG(img, q_table) #localizaing using trained detecting double JPEG network.
+        result = localizing_double_JPEG(img, q_table, stride) #localizaing using trained detecting double JPEG network.
 
         #plot and save the result
         fig = plt.figure()
-        ax = plt.Axes(fig, [0., 0., 1., 1.])
-        ax.set_axis_off()
-        fig.add_axes(ax)
-        ax.imshow(result, cmap='binary')
-        plt.savefig(result_name)
+        columns = 2
+        rows = 1
+        fig.add_subplot(rows, columns, 1)
+        plt.imshow(Image.open(file_path))
+        plt.title('input')
+
+        fig.add_subplot(rows, columns, 2)
+        result = result*255
+        result = result.astype('uint8')
+        img_result = Image.fromarray(result)
+        img_result.convert("L")
+        plt.imshow(img_result, cmap='gray', vmin=0, vmax=255)
+        plt.title('result')
+        plt.savefig(result_path)
+        plt.show()
+
 
 
 
