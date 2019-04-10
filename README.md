@@ -25,3 +25,7 @@
   PQ# means save jpg quality factors in Photoshop.
 
 - You can download single and double JPEG images and 1120 quantization tables at https://sites.google.com/view/jspark/home/djpeg.
+
+- Videos showing the process of generating manipulated images. https://drive.google.com/file/d/1G3fOUIBgI3Th0bjPVvP6Dzba-o_Wx3Ev/view?usp=sharing
+
+- Rebuttal. https://drive.google.com/file/d/1RFLk0b_pilQUYpz82mTFOl0aR-Q-IfSA/view?usp=sharing
