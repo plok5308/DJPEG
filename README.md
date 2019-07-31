@@ -3,6 +3,8 @@
 
 - Conference: The European Conference on Computer Vision (ECCV)
 
+- Data normalization is important. You should set the Y value having 0-255, not 0-1.
+
 - Proposed network tensorflow code.
 
 - Trained weights link: https://drive.google.com/open?id=1HlKSoCGVm_2Gia--MH5Bx3SquJos-kr1.
