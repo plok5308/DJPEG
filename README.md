@@ -3,8 +3,7 @@
 ## PyTorch version (2021-02-20)
 Please move to below repository.
 ```
-https://github.com/plok5308/DJPEG-torch
-
+[https://github.com/plok5308/DJPEG-torch](https://github.com/plok5308/DJPEG-torch)
 ```
 
 ## TensorFlow1 version
