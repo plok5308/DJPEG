@@ -1,5 +1,10 @@
 # Double JPEG Detection in Mixed JPEG Quality Factors using Deep Convolutional Neural Network (ECCV 2018)
-test.
+
+## PyTorch version (2021-02-20)
+```
+https://github.com/plok5308/DJPEG-torch
+```
+
 - Title: Double JPEG Detection in Mixed JPEG Quality Factors using Deep Convolutional Neural Network
 
 - Conference: The European Conference on Computer Vision (ECCV)
